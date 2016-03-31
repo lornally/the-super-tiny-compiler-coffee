@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const {
   tokenizer,
   parser,
@@ -12,21 +11,6 @@ const input  = '(add 2 (subtract 4 2))';
 const output = 'add(2, subtract(4, 2));';
 
 const tokens = [
-=======
-var superTinyCompiler = require('./super-tiny-compiler');
-var assert            = require('assert');
-
-var tokenizer     = superTinyCompiler.tokenizer;
-var parser        = superTinyCompiler.parser;
-var transformer   = superTinyCompiler.transformer;
-var codeGenerator = superTinyCompiler.codeGenerator;
-var compiler      = superTinyCompiler.compiler;
-
-var input  = '(add 2 (subtract 4 2))';
-var output = 'add(2, subtract(4, 2));';
-
-var tokens = [
->>>>>>> 6c2eeda... Clean up test file
   { type: 'paren',  value: '('        },
   { type: 'name',   value: 'add'      },
   { type: 'number', value: '2'        },
@@ -38,11 +22,7 @@ var tokens = [
   { type: 'paren',  value: ')'        }
 ];
 
-<<<<<<< HEAD
 const ast = {
-=======
-var ast = {
->>>>>>> 6c2eeda... Clean up test file
   type: 'Program',
   body: [{
     type: 'CallExpression',
@@ -64,11 +44,7 @@ var ast = {
   }]
 };
 
-<<<<<<< HEAD
 const newAst = {
-=======
-var newAst = {
->>>>>>> 6c2eeda... Clean up test file
   type: 'Program',
   body: [{
     type: 'ExpressionStatement',
@@ -99,11 +75,11 @@ var newAst = {
   }]
 };
 
-<<<<<<< HEAD
 assert.deepStrictEqual(tokenizer(input), tokens, 'Tokenizer should turn `input` string into `tokens` array');
-=======
+
 assert.deepStrictEqual(tokenizer(input), tokens, 'Tokeizer should turn `input` string into `tokens` array');
->>>>>>> 6c2eeda... Clean up test file
+
+assert.deepStrictEqual(tokenizer(input), tokens, 'Tokenizer should turn `input` string into `tokens` array');
 assert.deepStrictEqual(parser(tokens), ast, 'Parser should turn `tokens` array into `ast`');
 assert.deepStrictEqual(transformer(ast), newAst, 'Transformer should turn `ast` into a `newAst`');
 assert.deepStrictEqual(codeGenerator(newAst), output, 'Code Generator should turn `newAst` into `output` string');
