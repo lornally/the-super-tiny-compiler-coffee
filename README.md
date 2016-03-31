@@ -10,6 +10,8 @@
 
 ### 或者... [看看演讲](https://www.youtube.com/watch?v=Tar4WgAfMr4)
 
+[(Or if you would prefer to read it without annotations, click here.)](super-tiny-compiler-unannotated.js)
+
 ---
 
 ### 为啥我要关心这个？
