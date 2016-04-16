@@ -10,6 +10,8 @@
 
 ### 或者... [看看演讲](https://www.youtube.com/watch?v=Tar4WgAfMr4)
 
+### or... [watch the talk](https://www.youtube.com/watch?v=Tar4WgAfMr4)
+
 ---
 
 ### 为啥我要关心这个？
