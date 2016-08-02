@@ -10,7 +10,7 @@
 
 ### 或者... [看看演讲](https://www.youtube.com/watch?v=Tar4WgAfMr4)
 
-### or... [watch the talk](https://www.youtube.com/watch?v=Tar4WgAfMr4)
+### 或者... [看看演讲](https://www.youtube.com/watch?v=Tar4WgAfMr4)
 
 ---
 
@@ -26,6 +26,7 @@
 
 ### 好吧，所以我该从哪儿开始？
 
+
 太棒了！直接去看 [super-tiny-compiler-chinese.js](super-tiny-compiler-chinese.js) 这个文件吧！
 
 ### Tests
@@ -35,6 +36,13 @@
 ### Tests
 
 Run with `node ./test/test.js`
+
+
+
+### Tests
+
+直接运行 `node test.js`
+
 
 ---
 
