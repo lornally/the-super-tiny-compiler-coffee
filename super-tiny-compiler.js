@@ -556,7 +556,11 @@ function parser(tokens) {
       //   (add 2 (subtract 4 2))
       //
       // You'll also notice that in our tokens array we have multiple closing
+<<<<<<< HEAD
       // parentheses.
+=======
+      // parenthesis.
+>>>>>>> Init commit
       //
       //   [
       //     { type: 'paren',  value: '('        },
@@ -751,7 +755,11 @@ function traverser(ast, visitor) {
  *                                    |             type: 'NumberLiteral',
  *                                    |             value: '2'
  *                                    |           }]
+<<<<<<< HEAD
  *  (sorry the other one is longer.)  |         }]
+=======
+ *  (sorry the other one is longer.)  |         }
+>>>>>>> Init commit
  *                                    |       }
  *                                    |     }]
  *                                    |   }
@@ -769,10 +777,16 @@ function transformer(ast) {
   };
 
   // Next I'm going to cheat a little and create a bit of a hack. We're going to
+<<<<<<< HEAD
   // use a property named `context` on our parent nodes that we're going to use
   // to push nodes to their parents' `context`'s. Normally you would have a
   // better abstraction than this, but for our purposes this keeps things
   // simple.
+=======
+  // use a property named `context` on our parent nodes that we're going to push
+  // nodes to their parent's `context`. Normally you would have a better
+  // abstraction than this, but for our purposes this keeps things simple.
+>>>>>>> Init commit
   //
   // Just take note that the context is a reference *from* the old ast *to* the
   // new ast.
@@ -842,7 +856,11 @@ function transformer(ast) {
  */
 
 /**
+<<<<<<< HEAD
  * Now let's move on to our last phase: The Code Generator.
+=======
+ * Now let's move onto our last phase: The Code Generator.
+>>>>>>> Init commit
  *
  * Our code generator is going to recursively call itself to print each node in
  * the tree into one giant string.
