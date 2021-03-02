@@ -39,7 +39,10 @@
  *
  * 比如说对于下面这一行代码语句：
  *
- *   (add 2 (subtract 4 2))
+ *   (add 2 (subtract 4 2)) 
+ *   coffee形式: 
+ *   ..add 2
+ *		 ..subtract 4 2
  *
  * Token数组, 注意上面的所有元素都平铺在数组里面: 
  *
@@ -54,7 +57,6 @@
  *     { type: 'paren',  value: ')'        },
  *     { type: 'paren',  value: ')'        }
  *   ]
- *
  * 抽象语法树AST, 这里是一个键值对组成的树:
  *
  *   {
@@ -154,7 +156,7 @@
  *
  * 我们最基础的想法是创建一个“访问者（visitor）”对象，这个对象中包含一些方法，可以处理不同的结点。
  *
- *   var visitor = {
+ *   visitor = {
  *     NumberLiteral() {},
  *     CallExpression() {}
  *   };
@@ -163,7 +165,7 @@
  *
  * 为了使这个对象能够正常工作，我们需要传入当前节点以及当前节点的父节点的引用。
  *
- *   var visitor = {
+ *   visitor = {
  *     NumberLiteral(node, parent) {},
  *     CallExpression(node, parent) {},
  *   };
@@ -195,7 +197,7 @@
  *
  * 为了支持上面所讲的功能，我们的访问者对象的最终形态如下：
  *
- *   var visitor = {
+ *   visitor = {
  *     NumberLiteral: {
  *       enter(node, parent) {},
  *       exit(node, parent) {},
@@ -234,6 +236,22 @@
  * 我们只是接收代码组成的字符串，然后把它们分割成 token 组成的数组。
  *
  *   (add 2 (subtract 4 2))   =>   [{ type: 'paren', value: '(' }, ...]
+ * 输入正常lisp语句:   (add 2 (subtract 4 2))
+ *
+ * 输出: Token数组: 
+ *
+ *   [
+ *     { type: 'paren',  value: '('        },
+ *     { type: 'name',   value: 'add'      },
+ *     { type: 'number', value: '2'        },
+ *     { type: 'paren',  value: '('        },
+ *     { type: 'name',   value: 'subtract' },
+ *     { type: 'number', value: '4'        },
+ *     { type: 'number', value: '2'        },
+ *     { type: 'paren',  value: ')'        },
+ *     { type: 'paren',  value: ')'        }
+ *   ]
+ *
 ###
 
 # 我们从接收一个字符串开始，首先设置两个变量。
@@ -249,7 +267,7 @@ tokenizer=(input)->
   # 
   # 我们这么做的原因是，由于 token 数组的长度是任意的，所以可能要在单个循环中多次
   # 增加 `current` 
-  while (current < input.length)
+  while current < input.length
 
     # 我们在这里储存了 `input` 中的当前字符
     char = input[current]
@@ -258,7 +276,7 @@ tokenizer=(input)->
     # 但是现在我们关心的只是字符本身。
     #
     # 检查一下是不是一个左圆括号。
-    if (char === '(')
+    if char === '('
 
       # 如果是，那么我们 push 一个 type 为 `paren`，value 为左圆括号的对象。
       tokens.push
@@ -274,24 +292,24 @@ tokenizer=(input)->
 
     # 然后我们检查是不是一个右圆括号。这里做的时候和之前一样：检查右圆括号、加入新的 token、
     # 自增 `current`，然后进入下一次循环。
-    if (char === ')') {
-      tokens.push({
-        type: 'paren',
+    if char === ')' 
+      tokens.push
+        type: 'paren'
         value: ')'
-      });
-      current++;
-      continue;
-    }
+      
+      current++
+      continue
+    
 
     # 继续，我们现在检查是不是空格。有趣的是，我们想要空格的本意是分隔字符，但这现在
     # 对于我们储存 token 来说不那么重要。我们暂且搁置它。
     # 
     # 所以我们只是简单地检查是不是空格，如果是，那么我们直接进入下一个循环。
-    var WHITESPACE = /\s/;
-    if (WHITESPACE.test(char)) {
-      current++;
-      continue;
-    }
+    WHITESPACE = /\s/
+    if WHITESPACE.test char
+      current++
+      continue
+    
 
     # 下一个 token 的类型是数字。它和之前的 token 不同，因为数字可以由多个数字字符组成，
     # 但是我们只能把它们识别为一个 token。
@@ -302,28 +320,56 @@ tokenizer=(input)->
     #        这里只有两个 token
     #        
     # 当我们遇到一个数字字符时，将会从这里开始。
-    var NUMBERS = /[0-9]/;
-    if (NUMBERS.test(char)) {
+    NUMBERS = /[0-9]/
+    if NUMBERS.test char
 
       # 创建一个 `value` 字符串，用于 push 字符。
-      var value = '';
+      value = ''
 
       # 然后我们循环遍历接下来的字符，直到我们遇到的字符不再是数字字符为止，把遇到的每
       # 一个数字字符 push 进 `value` 中，然后自增 `current`。
-      while (NUMBERS.test(char)) {
-        value += char;
-        char = input[++current];
-      }
+      while NUMBERS.test char
+        value += char
+        char = input[++current]
+      
 
       # 然后我们把类型为 `number` 的 token 放入 `tokens` 数组中。
-      tokens.push({
-        type: 'number',
+      tokens.push
+        type: 'number'
         value: value
-      });
+      
 
       # 进入下一次循环。
-      continue;
-    }
+      continue
+
+    # 我们同样支持字符串，字符串是由双引号"包裹的文字内容。
+    #
+    #   (concat "foo" "bar")
+    #            ^^^   ^^^ string tokens
+    #
+    # 我们引号开始检测。
+    if char == '"'
+      # 创造一个`value`变量保存我们的字符串。
+      value = ''
+
+      # 跳过意味着字符串开始的那个引号。
+      char = input[++current]
+
+      # 之后我们遍历每一个字符直到我们到达了另一个引号。
+      while char != '"'
+        value += char
+        char = input[++current]
+      
+      # 跳过意味着字符串结尾的引号。
+      char = input[++current]
+			# 然后创造字符串词素并添加到`tokens`数组
+      okens.push
+        type: 'string'
+        value # 这个会有问题, 如果引入单一对象参数就没问题了.
+
+      continue
+    
+    
 
     # 最后一种类型的 token 是 `name`。它由一系列的字母组成，这在我们的 lisp 语法中
     # 代表了函数。
@@ -332,31 +378,31 @@ tokenizer=(input)->
     #    ^^^
     #    Name token
     #
-    var LETTERS = /[a-z]/i;
-    if (LETTERS.test(char)) {
-      var value = '';
+    LETTERS = /[a-z]/i
+    if LETTERS.test char
+      value = '';
 
       # 同样，我们用一个循环遍历所有的字母，把它们存入 value 中。
-      while (LETTERS.test(char)) {
+      while LETTERS.test char
         value += char;
-        char = input[++current];
-      }
+        char = input[++current]
+      
 
       # 然后添加一个类型为 `name` 的 token，然后进入下一次循环。
-      tokens.push({
+      tokens.push
         type: 'name',
         value: value
-      });
+      
 
-      continue;
-    }
+      continue
+    
 
     # 最后如果我们没有匹配上任何类型的 token，那么我们抛出一个错误。
-    throw new TypeError('I dont know what this character is: ' + char);
-  }
+    throw new TypeError 'I dont know what this character is: ' + char
+  
 
   # 词法分析器的最后我们返回 tokens 数组。
-  return tokens;
+  tokens
 
 
 ###
@@ -370,19 +416,56 @@ tokenizer=(input)->
  *  语法分析器接受 token 数组，然后把它转化为 AST
  *
  *   [{ type: 'paren', value: '(' }, ...]   =>   { type: 'Program', body: [...] }
+ * 输入: Token数组, 注意上面的所有元素都平铺在数组里面: 
+ *
+ *   [
+ *     { type: 'paren',  value: '('        },
+ *     { type: 'name',   value: 'add'      },
+ *     { type: 'number', value: '2'        },
+ *     { type: 'paren',  value: '('        },
+ *     { type: 'name',   value: 'subtract' },
+ *     { type: 'number', value: '4'        },
+ *     { type: 'number', value: '2'        },
+ *     { type: 'paren',  value: ')'        },
+ *     { type: 'paren',  value: ')'        }
+ *   ]
+ *
+ * 输出抽象语法树AST, 这里是一个键值对组成的树:
+ *
+ *   {
+ *     type: 'Program',
+ *     body: [{
+ *       type: 'CallExpression',
+ *       name: 'add',
+ *       params: [{
+ *         type: 'NumberLiteral',
+ *         value: '2'
+ *       }, {
+ *         type: 'CallExpression',
+ *         name: 'subtract',
+ *         params: [{
+ *           type: 'NumberLiteral',
+ *           value: '4'
+ *         }, {
+ *           type: 'NumberLiteral',
+ *           value: '2'
+ *         }]
+ *       }]
+ *     }]
+ *   }
 ###
 
 # 现在我们定义 parser 函数，接受 `tokens` 数组
-function parser(tokens) {
+parser=(tokens) ->
 
   # 我们再次声明一个 `current` 变量作为指针。
-  var current = 0;
+  current = 0;
 
   # 但是这次我们使用递归而不是 `while` 循环，所以我们定义一个 `walk` 函数。
-  function walk() {
+  walk=() ->
 
     # walk函数里，我们从当前token开始
-    var token = tokens[current];
+    token = tokens[current];
 
     # 对于不同类型的结点，对应的处理方法也不同，我们从 `number` 类型的 token 开始。
     # 检查是不是 `number` 类型
@@ -409,7 +492,7 @@ function parser(tokens) {
 
       # 我们创建一个类型为 `CallExpression` 的根节点，然后把它的 name 属性设置为当前
       # token 的值，因为紧跟在左圆括号后面的 token 一定是调用的函数的名字。 
-      var node = {
+      node = {
         type: 'CallExpression',
         name: token.value,
         params: []
@@ -467,10 +550,10 @@ function parser(tokens) {
 
     # 同样，如果我们遇到了一个类型未知的结点，就抛出一个错误。
     throw new TypeError(token.type);
-  }
+  
 
   # 现在，我们创建 AST，根结点是一个类型为 `Program` 的结点。
-  var ast = {
+  ast = {
     type: 'Program',
     body: []
   };
@@ -489,7 +572,7 @@ function parser(tokens) {
 
   # 最后我们的语法分析器返回 AST 
   return ast;
-}
+
 
 ###
  * ============================================================================
@@ -518,56 +601,56 @@ function parser(tokens) {
 ###
 
 # 所以我们定义一个遍历器，它有两个参数，AST 和 vistor。在它的里面我们又定义了两个函数...
-function traverser(ast, visitor) {
+traverser=(ast, visitor) ->
 
   # `traverseArray` 函数允许我们对数组中的每一个元素调用 `traverseNode` 函数。
-  function traverseArray(array, parent) {
-    array.forEach(function(child) {
+  traverseArray=(array, parent)-> {
+    array.forEach((child)->{
       traverseNode(child, parent);
     });
   }
 
   # `traverseNode` 函数接受一个 `node` 和它的父结点 `parent` 作为参数，这个结点会被
   # 传入到 visitor 中相应的处理函数那里。
-  function traverseNode(node, parent) {
+  traverseNode=(node, parent)-> 
 
     # 首先我们看看 visitor 中有没有对应 `type` 的处理函数。
-    var method = visitor[node.type];
+    method = visitor[node.type];
 
     # 如果有，那么我们把 `node` 和 `parent` 都传入其中。
-    if (method) {
-      method(node, parent);
-    }
+    if method
+      method(node, parent)
+    
 
     # 下面我们对每一个不同类型的结点分开处理。
-    switch (node.type) {
+    switch node.type
 
       # 我们从顶层的 `Program` 开始，Program 结点中有一个 body 属性，它是一个由若干
       # 个结点组成的数组，所以我们对这个数组调用 `traverseArray`。
       #
       # （记住 `traverseArray` 会调用 `traverseNode`，所以我们会递归地遍历这棵树。）
-      case 'Program':
+      when 'Program'
         traverseArray(node.body, node);
-        break;
+
 
       # 下面我们对 `CallExpressions` 做同样的事情，遍历它的 `params`。
-      case 'CallExpression':
+      when 'CallExpression'
         traverseArray(node.params, node);
-        break;
+
 
       # 如果是 `NumberLiterals`，那么就没有任何子结点了，所以我们直接 break
-      case 'NumberLiteral':
-        break;
+      when 'NumberLiteral'
+
 
       # 同样，如果我们不能识别当前的结点，那么就抛出一个错误。
-      default:
+      else
         throw new TypeError(node.type);
-    }
-  }
+    
+  
 
   # 最后我们对 AST 调用 `traverseNode`，开始遍历。注意 AST 并没有父结点。
-  traverseNode(ast, null);
-}
+  traverseNode(ast, null)
+
 
 ###
  * ============================================================================
@@ -620,7 +703,7 @@ function traverser(ast, visitor) {
 function transformer(ast) {
 
   # 创建 `newAST`，它与我们之前的 AST 类似，有一个类型为 Program 的根节点。
-  var newAst = {
+  newAst = {
     type: 'Program',
     body: []
   };
@@ -649,7 +732,7 @@ function transformer(ast) {
     CallExpression: function(node, parent) {
 
       # 我们创建一个 `CallExpression` 结点，里面有一个嵌套的 `Identifier`。
-      var expression = {
+      expression = {
         type: 'CallExpression',
         callee: {
           type: 'Identifier',
@@ -669,7 +752,7 @@ function transformer(ast) {
         # 单独存在（原文为top level）的 `CallExpressions` 在 JavaScript 中也可以被当做
         # 是声明语句。
         # 
-        # 译者注：比如 `var a = foo()` 与 `foo()`，后者既可以当作表达式给某个变量赋值，也
+        # 译者注：比如 `a = foo()` 与 `foo()`，后者既可以当作表达式给某个变量赋值，也
         # 可以作为一个独立的语句存在。
         expression = {
           type: 'ExpressionStatement',
@@ -760,10 +843,10 @@ function codeGenerator(node) {
 ###
 
 function compiler(input) {
-  var tokens = tokenizer(input);
-  var ast    = parser(tokens);
-  var newAst = transformer(ast);
-  var output = codeGenerator(newAst);
+  tokens = tokenizer(input);
+  ast    = parser(tokens);
+  newAst = transformer(ast);
+  output = codeGenerator(newAst);
 
   # 然后返回输出!
   return output;
