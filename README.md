@@ -35,8 +35,19 @@
 2. 考虑是否能继续简化这个编译器, 比如visitor模式似乎并不是必须的.
 3. 按照接口验证的思路来进行接口描述, 详细描述每个接口的输入和输出.
 
+###### 原理
+
+1. 第一步拿到的tocken列表, 包含所有的程序, 每一个单词都在里面, 比如if出现了两次, 那么这个列表里面有两个if.
+2. 第二步处理第一步得到的列表的每一个项目, 生成ast树.
+3. 第三步遍历这个ast树, 并转化为另一个ast树.
+
+###### 计划
+
+- 用coffee重写
+- 是否能更加清晰简单一些
 
 ### 本项目是从以下项目发展(fork)而来
+
 - https://github.com/jamiebuilds/the-super-tiny-compiler
 - https://github.com/starkwang/the-super-tiny-compiler-cn
 - https://github.com/YongzeYao/the-super-tiny-compiler-CN

@@ -78,7 +78,9 @@
   *                                   (/^▽^)/
   *                                THE TOKENIZER!
   * ============================================================================
+	* 
   */
+'use strict';
 function tokenizer(input) {
   var current = 0;
   var tokens = [];
