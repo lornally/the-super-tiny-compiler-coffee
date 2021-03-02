@@ -1,79 +1,4 @@
 /**
- * TTTTTTTTTTTTTTTTTTTTTTTHHHHHHHHH     HHHHHHHHHEEEEEEEEEEEEEEEEEEEEEE
- * T:::::::::::::::::::::TH:::::::H     H:::::::HE::::::::::::::::::::E
- * T:::::::::::::::::::::TH:::::::H     H:::::::HE::::::::::::::::::::E
- * T:::::TT:::::::TT:::::THH::::::H     H::::::HHEE::::::EEEEEEEEE::::E
- * TTTTTT  T:::::T  TTTTTT  H:::::H     H:::::H    E:::::E       EEEEEE
- *         T:::::T          H:::::H     H:::::H    E:::::E
- *         T:::::T          H::::::HHHHH::::::H    E::::::EEEEEEEEEE
- *         T:::::T          H:::::::::::::::::H    E:::::::::::::::E
- *         T:::::T          H:::::::::::::::::H    E:::::::::::::::E
- *         T:::::T          H::::::HHHHH::::::H    E::::::EEEEEEEEEE
- *         T:::::T          H:::::H     H:::::H    E:::::E
- *         T:::::T          H:::::H     H:::::H    E:::::E       EEEEEE
- *       TT:::::::TT      HH::::::H     H::::::HHEE::::::EEEEEEEE:::::E
- *       T:::::::::T      H:::::::H     H:::::::HE::::::::::::::::::::E
- *       T:::::::::T      H:::::::H     H:::::::HE::::::::::::::::::::E
- *       TTTTTTTTTTT      HHHHHHHHH     HHHHHHHHHEEEEEEEEEEEEEEEEEEEEEE
- *
- *    SSSSSSSSSSSSSSS UUUUUUUU     UUUUUUUUPPPPPPPPPPPPPPPPP   EEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
- *  SS:::::::::::::::SU::::::U     U::::::UP::::::::::::::::P  E::::::::::::::::::::ER::::::::::::::::R
- * S:::::SSSSSS::::::SU::::::U     U::::::UP::::::PPPPPP:::::P E::::::::::::::::::::ER::::::RRRRRR:::::R
- * S:::::S     SSSSSSSUU:::::U     U:::::UUPP:::::P     P:::::PEE::::::EEEEEEEEE::::ERR:::::R     R:::::R
- * S:::::S             U:::::U     U:::::U   P::::P     P:::::P  E:::::E       EEEEEE  R::::R     R:::::R
- * S:::::S             U:::::U     U:::::U   P::::P     P:::::P  E:::::E               R::::R     R:::::R
- *  S::::SSSS          U:::::U     U:::::U   P::::PPPPPP:::::P   E::::::EEEEEEEEEE     R::::RRRRRR:::::R
- *   SS::::::SSSSS     U:::::U     U:::::U   P:::::::::::::PP    E:::::::::::::::E     R:::::::::::::RR
- *     SSS::::::::SS   U:::::U     U:::::U   P::::PPPPPPPPP      E:::::::::::::::E     R::::RRRRRR:::::R
- *        SSSSSS::::S  U:::::U     U:::::U   P::::P              E::::::EEEEEEEEEE     R::::R     R:::::R
- *             S:::::S U:::::U     U:::::U   P::::P              E:::::E               R::::R     R:::::R
- *             S:::::S U::::::U   U::::::U   P::::P              E:::::E       EEEEEE  R::::R     R:::::R
- * SSSSSSS     S:::::S U:::::::UUU:::::::U PP::::::PP          EE::::::EEEEEEEE:::::ERR:::::R     R:::::R
- * S::::::SSSSSS:::::S  UU:::::::::::::UU  P::::::::P          E::::::::::::::::::::ER::::::R     R:::::R
- * S:::::::::::::::SS     UU:::::::::UU    P::::::::P          E::::::::::::::::::::ER::::::R     R:::::R
- *  SSSSSSSSSSSSSSS         UUUUUUUUU      PPPPPPPPPP          EEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
- *
- * TTTTTTTTTTTTTTTTTTTTTTTIIIIIIIIIINNNNNNNN        NNNNNNNNYYYYYYY       YYYYYYY
- * T:::::::::::::::::::::TI::::::::IN:::::::N       N::::::NY:::::Y       Y:::::Y
- * T:::::::::::::::::::::TI::::::::IN::::::::N      N::::::NY:::::Y       Y:::::Y
- * T:::::TT:::::::TT:::::TII::::::IIN:::::::::N     N::::::NY::::::Y     Y::::::Y
- * TTTTTT  T:::::T  TTTTTT  I::::I  N::::::::::N    N::::::NYYY:::::Y   Y:::::YYY
- *         T:::::T          I::::I  N:::::::::::N   N::::::N   Y:::::Y Y:::::Y
- *         T:::::T          I::::I  N:::::::N::::N  N::::::N    Y:::::Y:::::Y
- *         T:::::T          I::::I  N::::::N N::::N N::::::N     Y:::::::::Y
- *         T:::::T          I::::I  N::::::N  N::::N:::::::N      Y:::::::Y
- *         T:::::T          I::::I  N::::::N   N:::::::::::N       Y:::::Y
- *         T:::::T          I::::I  N::::::N    N::::::::::N       Y:::::Y
- *         T:::::T          I::::I  N::::::N     N:::::::::N       Y:::::Y
- *       TT:::::::TT      II::::::IIN::::::N      N::::::::N       Y:::::Y
- *       T:::::::::T      I::::::::IN::::::N       N:::::::N    YYYY:::::YYYY
- *       T:::::::::T      I::::::::IN::::::N        N::::::N    Y:::::::::::Y
- *       TTTTTTTTTTT      IIIIIIIIIINNNNNNNN         NNNNNNN    YYYYYYYYYYYYY
- *
- *         CCCCCCCCCCCCC     OOOOOOOOO     MMMMMMMM               MMMMMMMMPPPPPPPPPPPPPPPPP   IIIIIIIIIILLLLLLLLLLL             EEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRR
- *      CCC::::::::::::C   OO:::::::::OO   M:::::::M             M:::::::MP::::::::::::::::P  I::::::::IL:::::::::L             E::::::::::::::::::::ER::::::::::::::::R
- *    CC:::::::::::::::C OO:::::::::::::OO M::::::::M           M::::::::MP::::::PPPPPP:::::P I::::::::IL:::::::::L             E::::::::::::::::::::ER::::::RRRRRR:::::R
- *   C:::::CCCCCCCC::::CO:::::::OOO:::::::OM:::::::::M         M:::::::::MPP:::::P     P:::::PII::::::IILL:::::::LL             EE::::::EEEEEEEEE::::ERR:::::R     R:::::R
- *  C:::::C       CCCCCCO::::::O   O::::::OM::::::::::M       M::::::::::M  P::::P     P:::::P  I::::I    L:::::L                 E:::::E       EEEEEE  R::::R     R:::::R
- * C:::::C              O:::::O     O:::::OM:::::::::::M     M:::::::::::M  P::::P     P:::::P  I::::I    L:::::L                 E:::::E               R::::R     R:::::R
- * C:::::C              O:::::O     O:::::OM:::::::M::::M   M::::M:::::::M  P::::PPPPPP:::::P   I::::I    L:::::L                 E::::::EEEEEEEEEE     R::::RRRRRR:::::R
- * C:::::C              O:::::O     O:::::OM::::::M M::::M M::::M M::::::M  P:::::::::::::PP    I::::I    L:::::L                 E:::::::::::::::E     R:::::::::::::RR
- * C:::::C              O:::::O     O:::::OM::::::M  M::::M::::M  M::::::M  P::::PPPPPPPPP      I::::I    L:::::L                 E:::::::::::::::E     R::::RRRRRR:::::R
- * C:::::C              O:::::O     O:::::OM::::::M   M:::::::M   M::::::M  P::::P              I::::I    L:::::L                 E::::::EEEEEEEEEE     R::::R     R:::::R
- * C:::::C              O:::::O     O:::::OM::::::M    M:::::M    M::::::M  P::::P              I::::I    L:::::L                 E:::::E               R::::R     R:::::R
- *  C:::::C       CCCCCCO::::::O   O::::::OM::::::M     MMMMM     M::::::M  P::::P              I::::I    L:::::L         LLLLLL  E:::::E       EEEEEE  R::::R     R:::::R
- *   C:::::CCCCCCCC::::CO:::::::OOO:::::::OM::::::M               M::::::MPP::::::PP          II::::::IILL:::::::LLLLLLLLL:::::LEE::::::EEEEEEEE:::::ERR:::::R     R:::::R
- *    CC:::::::::::::::C OO:::::::::::::OO M::::::M               M::::::MP::::::::P          I::::::::IL::::::::::::::::::::::LE::::::::::::::::::::ER::::::R     R:::::R
- *      CCC::::::::::::C   OO:::::::::OO   M::::::M               M::::::MP::::::::P          I::::::::IL::::::::::::::::::::::LE::::::::::::::::::::ER::::::R     R:::::R
- *         CCCCCCCCCCCCC     OOOOOOOOO     MMMMMMMM               MMMMMMMMPPPPPPPPPP          IIIIIIIIIILLLLLLLLLLLLLLLLLLLLLLLLEEEEEEEEEEEEEEEEEEEEEERRRRRRRR     RRRRRRR
- *
- * =======================================================================================================================================================================
- * =======================================================================================================================================================================
- * =======================================================================================================================================================================
- * =======================================================================================================================================================================
- */
-
-/**
  * 今天让我们来写一个编译器，一个超级无敌小的编译器！它小到如果把所有注释删去的话，大概只剩
  * 200行左右的代码。
  * 
@@ -100,12 +25,11 @@
  * 大多数编译器可以分成三个阶段：解析（Parsing），转换（Transformation）以及代码
  * 生成（Code Generation）
  *
- * 1. *解析*是将最初原始的代码转换为一种更加抽象的表示（译者注：即AST）。*
+ * 1. *解析*将原始代码转化为易于后续处理的结构化数据(例如json), 处理为AST(可以认为是一个json)
  *
- * 2. *转换*将对这个抽象的表示做一些处理，让它能做到编译器期望
- *    它做到的事情。
+ * 2. *转换*将处理AST(json)，这一步类似于正则处理字符串.
  *
- * 3. *代码生成*接收处理之后的代码表示，然后把它转换成新的代码。
+ * 3. *代码生成*把改好的AST转成新的代码, 可以认为是第一步的逆操作.
  */
 
 /**
@@ -114,10 +38,10 @@
  *
  * 解析一般来说会分成两个阶段：词法分析（Lexical Analysis）和语法分析（Syntactic Analysis）。
  *
- * 1. *词法分析*接收原始代码，然后把它分割成一些被称为 Token 的东西，这个过程是在词法分析
+ * 1. *词法分析*接收原始代码，然后把它通通分割成很多Token(可以理解为把句子拆成一个个单词)，这个过程是在词法分析
  *    器（Tokenizer或者Lexer）中完成的。
  *
- *    Token 是一个数组，由一些代码语句的碎片组成。它们可以是数字、标签、标点符号、运算符，
+ *    用一个数组存储所有token，由一些代码语句的碎片组成。它们可以是数字、标签、标点符号、运算符，
  *    或者其它任何东西。
  *
  * 2. *语法分析* 接收之前生成的 Token，把它们转换成一种抽象的表示，这种抽象的表示描述了代
